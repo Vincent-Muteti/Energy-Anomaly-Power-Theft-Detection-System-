@@ -1,6 +1,6 @@
 # Ignore large raw datasets
 power_raw_cleaned.csv
-
+power_multi_household.csv
 # General ignores
 __pycache__/
 .ipynb_checkpoints/
