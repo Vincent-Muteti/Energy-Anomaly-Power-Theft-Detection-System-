@@ -1,0 +1,19 @@
+{
+  "trained_at": "2026-02-26T14:56:20.327674Z",
+  "start_date": "2007-01-01",
+  "end_date": "2008-12-31",
+  "rolling_window_days": 30,
+  "per_meter_contamination": 0.02,
+  "global_anomaly_rate": 0.02,
+  "global_threshold": -0.00041473635244795604,
+  "features": [
+    "residual_30",
+    "z_score_30",
+    "daily_std_power",
+    "voltage_std",
+    "intensity_mean",
+    "tmax",
+    "tmin",
+    "prcp"
+  ]
+}
