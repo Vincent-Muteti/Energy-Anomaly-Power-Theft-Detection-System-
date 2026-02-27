@@ -9,7 +9,9 @@ import pandas as pd
 import streamlit as st
 
 st.set_page_config(page_title="Inspection Prioritization", layout="wide")
+
 st.title("Electricity Anomaly Detection and Inspection Prioritization")
+st.caption("Machine learning–driven anomaly detection for electricity inspection prioritization.")
 
 DATA_MODE = st.sidebar.radio("Data mode", ["Use repo data", "Upload CSVs"])
 st.sidebar.markdown("---")
@@ -22,6 +24,7 @@ MODELS_PATH = f"{ARTIFACT_DIR}/models_by_meter.joblib"
 SCALERS_PATH = f"{ARTIFACT_DIR}/scalers_by_meter.joblib"
 META_PATH = f"{ARTIFACT_DIR}/metadata.json"
 
+# Outputs directory
 OUTPUT_DIR = "outputs"
 SCORED_PATH = f"{OUTPUT_DIR}/scored_output.csv"
 REPORT_PATH = f"{OUTPUT_DIR}/inspection_report.csv"
@@ -175,12 +178,13 @@ with tab0:
 
     st.warning("""
 Upload Mode Requirements:
-- Power CSV must contain:
-  meter_id, date, daily_mean_power
-- Weather CSV must contain:
-  date and required weather columns used in training
+- Power CSV must contain: meter_id, date, daily_mean_power
+- Weather CSV must contain: date and required weather columns used in training
 - Column names must match exactly.
 """)
+
+    st.caption("Note: This system flags statistical anomalies. It does not confirm electricity theft.")
+
 
 if run_btn:
     if DATA_MODE == "Upload CSVs":
@@ -216,3 +220,10 @@ if run_btn:
             file_name="Inspection_Report.csv",
             mime="text/csv",
         )
+else:
+    with tab1:
+        st.info("Run scoring first (sidebar → Run Scoring).")
+    with tab2:
+        st.info("Run scoring first (sidebar → Run Scoring).")
+    with tab3:
+        st.info("Run scoring first (sidebar → Run Scoring).")
