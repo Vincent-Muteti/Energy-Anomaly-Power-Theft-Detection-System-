@@ -1,11 +1,11 @@
 meter_id,total_anomalies,percent_anomalous,worst_anomaly_score,avg_anomaly_score,last_anomaly_date,max_streak_days,risk_score,risk_level,alert_message
-MTR_003,14,0.019178082191780823,-0.05823984705762053,0.13237743347455397,2008-11-23,1,100.0,High,ALERT: Meter MTR_003 is High risk (Risk Score: 100.0). Anomalous days: 14; Max streak: 1 days; Last anomaly: 2008-11-23. Recommended for inspection review.
-MTR_009,15,0.02054794520547945,-0.049900830495239745,0.1270074175294014,2008-11-23,2,69.2,High,ALERT: Meter MTR_009 is High risk (Risk Score: 69.2). Anomalous days: 15; Max streak: 2 days; Last anomaly: 2008-11-23. Recommended for inspection review.
-MTR_006,15,0.02054794520547945,-0.047638903260251664,0.12599362439772713,2008-11-23,2,58.2,Medium,ALERT: Meter MTR_006 is Medium risk (Risk Score: 58.2). Anomalous days: 15; Max streak: 2 days; Last anomaly: 2008-11-23. Recommended for inspection review.
-MTR_010,15,0.02054794520547945,-0.0447591379968888,0.12902191720179282,2008-11-23,2,44.1,Medium,ALERT: Meter MTR_010 is Medium risk (Risk Score: 44.1). Anomalous days: 15; Max streak: 2 days; Last anomaly: 2008-11-23. Recommended for inspection review.
+MTR_001,14,0.019178082191780823,-0.037792839941710454,0.1285793519388542,2008-11-23,2,10.0,Low,No immediate inspection required.
 MTR_002,14,0.019178082191780823,-0.04464452992311729,0.12645410590142236,2008-11-23,2,43.5,Medium,ALERT: Meter MTR_002 is Medium risk (Risk Score: 43.5). Anomalous days: 14; Max streak: 2 days; Last anomaly: 2008-11-23. Recommended for inspection review.
-MTR_007,14,0.019178082191780823,-0.04228937960420631,0.12849653003959646,2008-11-23,2,32.0,Low,No immediate inspection required.
+MTR_003,14,0.019178082191780823,-0.05823984705762053,0.13237743347455397,2008-11-23,1,100.0,High,ALERT: Meter MTR_003 is High risk (Risk Score: 100.0). Anomalous days: 14; Max streak: 1 days; Last anomaly: 2008-11-23. Recommended for inspection review.
 MTR_004,15,0.02054794520547945,-0.04086882574843531,0.1288676566774083,2008-11-23,2,25.0,Low,No immediate inspection required.
 MTR_005,15,0.02054794520547945,-0.04064376384720536,0.12665296633260387,2008-11-23,2,23.9,Low,No immediate inspection required.
+MTR_006,15,0.02054794520547945,-0.047638903260251664,0.12599362439772713,2008-11-23,2,58.2,Medium,ALERT: Meter MTR_006 is Medium risk (Risk Score: 58.2). Anomalous days: 15; Max streak: 2 days; Last anomaly: 2008-11-23. Recommended for inspection review.
+MTR_007,14,0.019178082191780823,-0.04228937960420631,0.12849653003959646,2008-11-23,2,32.0,Low,No immediate inspection required.
 MTR_008,15,0.02054794520547945,-0.039378086770406884,0.12520569486647642,2008-11-23,2,17.8,Low,No immediate inspection required.
-MTR_001,14,0.019178082191780823,-0.037792839941710454,0.1285793519388542,2008-11-23,2,10.0,Low,No immediate inspection required.
+MTR_009,15,0.02054794520547945,-0.049900830495239745,0.1270074175294014,2008-11-23,2,69.2,High,ALERT: Meter MTR_009 is High risk (Risk Score: 69.2). Anomalous days: 15; Max streak: 2 days; Last anomaly: 2008-11-23. Recommended for inspection review.
+MTR_010,15,0.02054794520547945,-0.0447591379968888,0.12902191720179282,2008-11-23,2,44.1,Medium,ALERT: Meter MTR_010 is Medium risk (Risk Score: 44.1). Anomalous days: 15; Max streak: 2 days; Last anomaly: 2008-11-23. Recommended for inspection review.
