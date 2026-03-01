@@ -9,15 +9,197 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 
+# --------------------
+# Page config
+# --------------------
 st.set_page_config(page_title="Electricity Anomaly Detection", layout="wide")
 
-st.title("Electricity Anomaly Detection and Inspection Prioritization")
-st.caption("Machine learning–driven anomaly detection for electricity inspection prioritization.")
-st.info(
-    "Disclaimer: This app flags statistical anomalies for inspection prioritization. "
-    "It does not confirm electricity theft. Validate findings with field investigations."
+
+# --------------------
+# Premium UI (CSS)
+# --------------------
+def apply_premium_ui(
+    bg_url: str = "https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=2070&auto=format&fit=crop",
+):
+    st.markdown(
+        f"""
+        <style>
+        /* --- App background --- */
+        .stApp {{
+            background-image: url("{bg_url}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }}
+
+        /* Dark overlay for readability */
+        .stApp::before {{
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 20% 10%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.80) 55%, rgba(0,0,0,0.90) 100%);
+            z-index: -1;
+        }}
+
+        /* Main container spacing */
+        section.main > div {{
+            padding-top: 1.2rem;
+        }}
+
+        /* Glass effect for the whole page content */
+        .block-container {{
+            background: rgba(12, 16, 24, 0.55);
+            border: 1px solid rgba(255,255,255,0.06);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 18px;
+            padding: 1.6rem 1.6rem 2.2rem 1.6rem;
+            box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+        }}
+
+        /* Sidebar polish */
+        [data-testid="stSidebar"] > div:first-child {{
+            background: rgba(10, 12, 18, 0.70);
+            border-right: 1px solid rgba(255,255,255,0.06);
+        }}
+
+        /* Tabs */
+        .stTabs [data-baseweb="tab-list"] {{
+            gap: 0.75rem;
+        }}
+        .stTabs [data-baseweb="tab"] {{
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 999px;
+            padding: 0.35rem 0.85rem;
+        }}
+        .stTabs [aria-selected="true"] {{
+            background: rgba(255,255,255,0.10);
+            border: 1px solid rgba(255,255,255,0.14);
+        }}
+
+        /* Headline / text defaults */
+        h1, h2, h3, h4, h5, h6, p, label, li {{
+            color: rgba(255,255,255,0.92) !important;
+        }}
+        .stCaption {{
+            color: rgba(255,255,255,0.70) !important;
+        }}
+
+        /* Premium banner */
+        .hero {{
+            padding: 1.1rem 1.2rem;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(16,185,129,0.12));
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+            margin-bottom: 0.9rem;
+        }}
+        .hero-title {{
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }}
+        .hero-sub {{
+            margin-top: 0.35rem;
+            color: rgba(255,255,255,0.75) !important;
+            font-size: 1.0rem;
+        }}
+        .badge {{
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.82);
+            font-size: 0.85rem;
+        }}
+
+        /* Disclaimer card */
+        .disclaimer {{
+            padding: 0.9rem 1.0rem;
+            border-radius: 14px;
+            border: 1px solid rgba(59,130,246,0.25);
+            background: rgba(30, 58, 138, 0.18);
+            margin: 0.8rem 0 1.1rem 0;
+        }}
+
+        /* KPI cards */
+        .kpi {{
+            padding: 0.9rem 1rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.06);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+            transition: transform 120ms ease, box-shadow 120ms ease;
+        }}
+        .kpi:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 14px 38px rgba(0,0,0,0.28);
+        }}
+        .kpi-label {{
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.70);
+            margin: 0;
+        }}
+        .kpi-value {{
+            font-size: 1.65rem;
+            font-weight: 800;
+            margin: 0.15rem 0 0 0;
+            letter-spacing: -0.01em;
+        }}
+
+        /* Dataframe rounding */
+        [data-testid="stDataFrame"] {{
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
+        }}
+
+        /* Buttons */
+        .stButton > button {{
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.14);
+            background: rgba(255,255,255,0.06);
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+apply_premium_ui()
+
+
+# --------------------
+# Header (Hero)
+# --------------------
+st.markdown(
+    """
+    <div class="hero">
+      <div class="hero-title">Electricity Anomaly Detection & Inspection Prioritization</div>
+      <div class="hero-sub">Machine learning–driven anomaly detection to help focus inspections on the highest-risk meters.</div>
+      <div class="badge">Unsupervised anomaly scoring • Meter-level prioritization • Exportable reports</div>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
+st.markdown(
+    """
+    <div class="disclaimer">
+      <b>Disclaimer:</b> This app flags statistical anomalies for inspection prioritization. It does <b>not</b> confirm electricity theft.
+      Validate findings with field investigations.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# --------------------
+# Paths / constants
+# --------------------
 DATA_MODE = st.sidebar.radio("Data mode", ["Use repo data", "Upload CSVs"])
 st.sidebar.markdown("---")
 
@@ -227,6 +409,18 @@ def plot_meter_timeseries(meter_df: pd.DataFrame):
     st.pyplot(fig, use_container_width=True)
 
 
+def kpi_card(label: str, value: str):
+    st.markdown(
+        f"""
+        <div class="kpi">
+          <p class="kpi-label">{label}</p>
+          <p class="kpi-value">{value}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 # --------------------
 # Sidebar controls
 # --------------------
@@ -338,18 +532,34 @@ if run_btn:
         ]
 
     # --------------------
-    # KPI Summary
+    # KPI Summary (premium cards)
     # --------------------
     flagged_total = int(df["anomaly_flag_global"].sum())
     high_count = int((report["risk_level"] == "High").sum())
     med_count = int((report["risk_level"] == "Medium").sum())
+    low_count = int((report["risk_level"] == "Low").sum())
 
     k1, k2, k3, k4, k5 = st.columns(5)
-    k1.metric("Rows scored", f"{len(df):,}")
-    k2.metric("Meters", f"{report.shape[0]:,}")
-    k3.metric("Flagged days", f"{flagged_total:,}")
-    k4.metric("High risk meters", f"{high_count:,}")
-    k5.metric("Medium risk meters", f"{med_count:,}")
+    with k1:
+        kpi_card("Rows scored", f"{len(df):,}")
+    with k2:
+        kpi_card("Meters", f"{report.shape[0]:,}")
+    with k3:
+        kpi_card("Flagged days", f"{flagged_total:,}")
+    with k4:
+        kpi_card("High risk meters", f"{high_count:,}")
+    with k5:
+        kpi_card("Medium risk meters", f"{med_count:,}")
+
+    # Optional extra KPI row (small but nice)
+    a1, a2, a3 = st.columns(3)
+    with a1:
+        kpi_card("Low risk meters", f"{low_count:,}")
+    with a2:
+        pct = (flagged_total / max(len(df), 1)) * 100
+        kpi_card("Flagged rate", f"{pct:.2f}%")
+    with a3:
+        kpi_card("Threshold", f"{float(meta['global_threshold']):.6f}")
 
     # --------------------
     # Dashboard
