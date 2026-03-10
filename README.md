@@ -211,3 +211,7 @@ This project demonstrates how machine learning and time-series analysis can powe
 By integrating unsupervised anomaly detection, supervised benchmarking, contextual adjustment, rolling time-series modeling, and automated reporting, the system provides a robust and deployable inspection prioritization framework suitable for smart grid environments.
 
 The framework illustrates how utilities can transition from reactive inspection practices toward proactive, machine learning–driven anomaly intelligence supported by structured alert generation.
+
+## Links
+- Website : https://energy-anomaly-power-theft-detection-system-usho3gs893bcxfpikw.streamlit.app/ 
+- Slides : https://www.canva.com/design/DAHCnDdv5YI/EY3460EEZG5d6N39tioGnQ/edit?ui=eyJBIjp7fX0
